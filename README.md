@@ -6,6 +6,10 @@
 
 [Отчёт о проекте](docs/TrafficControl-Report-4.docx) · [Журналы пяти прогонов](docs/logs)
 
+## Главный экран
+
+![Главный экран TrafficControl с картой перекрёстков и журналом](docs/screenshots/main.png)
+
 ## Запуск через Docker Compose
 
 Установите Docker Desktop (Windows или macOS) либо Docker Engine с плагином Compose (Linux). Откройте Docker Desktop, если он установлен. Скачайте репозиторий через **Code → Download ZIP** или выполните команды Git:
