@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrafficControl</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="title-block">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div><h1>TrafficControl</h1><p>Симулятор управления светофорами</p></div>
+    </div>
+    <div class="status" id="status" role="status">Готов к запуску</div>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Управление сценарием">
+      <div class="scenario-field">
+        <label for="scenario">Сценарий</label>
+        <select id="scenario"></select>
+      </div>
+      <div>
+        <label for="speed">Скорость</label>
+        <select id="speed">
+          <option value="1">1×</option>
+          <option value="4" selected>4×</option>
+          <option value="12">12×</option>
+          <option value="30">30×</option>
+        </select>
+      </div>
+      <button class="primary" id="start" type="button" disabled>Запустить</button>
+      <button id="stop" type="button" disabled>Остановить</button>
+      <p id="description" class="description"></p>
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+
+    <div class="columns">
+      <section class="panel map-panel" aria-labelledby="map-heading">
+        <div class="panel-header">
+          <div><h2 id="map-heading">Схема района</h2><p>Четыре перекрёстка</p></div>
+          <div class="timeline">
+            <span>Модельное время</span>
+            <output id="time">00:00</output>
+          </div>
+        </div>
+        <progress id="progress" value="0" max="1" aria-label="Ход сценария"></progress>
+        <canvas id="map" width="760" height="494" role="img"
+          aria-label="Сетка два на два. Машины едут по дорогам между перекрёстками. Четыре индикатора вокруг каждого перекрёстка показывают сигналы подходов С, Ю, З и В."></canvas>
+        <div class="legend" aria-label="Условные обозначения">
+          <span><i class="legend-green"></i>Зелёный</span>
+          <span><i class="legend-yellow"></i>Жёлтый</span>
+          <span><i class="legend-red"></i>Красный</span>
+          <span><i class="legend-car"></i>Обычные машины</span>
+          <span><i class="legend-ambulance">+</i>Скорая</span>
+          <span>Число у светофора — очередь на подходе</span>
+        </div>
+        <div class="crossings" id="crossings"></div>
+      </section>
+
+      <aside class="panel log-panel" aria-labelledby="log-heading">
+        <div class="panel-header">
+          <div><h2 id="log-heading">Журнал</h2><p id="event-total">0 записей</p></div>
+          <a id="download" class="button" href="/api/log" hidden>Скачать лог</a>
+        </div>
+        <label class="filter"><input id="detail" type="checkbox"> Показать замеры датчиков</label>
+        <ol id="feed" class="feed" aria-label="События симуляции"></ol>
+        <p id="empty" class="empty">После запуска здесь появятся сообщения между агентами и переключения светофоров.</p>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
