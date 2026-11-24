@@ -1,0 +1,21 @@
+name: trafficcontrol
+services:
+  rabbitmq:
+    image: rabbitmq:4.1-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: traffic
+      RABBITMQ_DEFAULT_PASS: traffic-demo
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_port_connectivity"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+  app:
+    build: .
+    environment:
+      AMQP_URL: amqp://traffic:traffic-demo@rabbitmq:5672/
+    ports:
+      - "127.0.0.1:${TRAFFIC_PORT:-8000}:8000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
